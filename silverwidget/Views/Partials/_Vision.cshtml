@@ -1,0 +1,29 @@
+﻿
+@inherits Umbraco.Web.Mvc.UmbracoTemplatePage
+@{
+
+    var currentPage = CurrentPage;
+}
+
+
+@{
+
+    foreach (var child in currentPage.Children)
+
+    {
+        if (child.Name == "Our Vision and Values")
+        {
+<div class="section" style="">
+    <div class="container">
+        <div class="row">
+            <div class="sectionTitle"><h2 class="sectionHead">@child.pagetitle</h2></div>
+            <div class="col-md-8 col-md-offset-2">
+             @child.pagedescription
+            </div>
+        </div>
+    </div>
+</div>
+            }
+
+        }
+    }

@@ -1,0 +1,30 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoTemplatePage
+@{
+
+    var currentPage = CurrentPage;
+}
+
+
+@{
+
+    foreach (var child in currentPage.Children)
+
+    {
+        if (child.Name == "Our History")
+        {
+            <div class="section" style="">
+                <div class="container">
+                    <div class="row">
+                        <div class="sectionTitle"><h2 class="sectionHead">@child.name</h2></div>
+                        <div class="col-md-5 col-md-offset-1 col-sm-6"><img src="@Umbraco.Media(child.logo).Url" class="responsiveImg" /></div>
+                        <div class="col-md-5 col-md-offset-1 col-sm-6 history_des">
+
+
+                            @child.pagedescription
+                             </div>
+                    </div>
+                </div>
+            </div>
+            }
+        }
+    }

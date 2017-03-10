@@ -1,0 +1,48 @@
+﻿
+@inherits Umbraco.Web.Mvc.UmbracoTemplatePage
+@{
+
+    var currentPage = CurrentPage;
+}
+
+
+@{
+
+    foreach (var child in currentPage.Children)
+    {
+
+
+        if( child.id == 1384)
+        { 
+
+
+<div class="container">
+    <div class="sectionTitle"><h2 class="sectionHead">@child.name</h2></div>
+    <ul id="og-grid" class="og-grid row">
+        @{
+            var pList = child.selectProjects.ToString().Split(new string[] { "," }, StringSplitOptions.RemoveEmptyEntries);
+            var projects = Umbraco.Content(pList);
+            //int i = 0;
+
+            foreach (var p in projects)
+            {
+                <li class="itemContainer col-md-3 services_grid">
+                    <a href="#" data-largesrc="@Umbraco.Media(p.projectLogo).Url" data-title="@p.projectName" data-short="@p.projectDescription" data-description="">
+                        <div class="pictireHolder"><img src="@Umbraco.Media(p.projectLogo).Url" alt="" /></div>
+                        <div>
+                            <h3>@p.name</h3>
+                            <p>@p.projectdescription</p>
+                        </div>
+                    </a>
+
+                </li>
+            }
+            }
+
+
+
+    </ul>
+</div>
+        }
+            }
+            }

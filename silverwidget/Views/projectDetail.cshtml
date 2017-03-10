@@ -1,0 +1,197 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoTemplatePage
+@{
+    Layout = "Master.cshtml";
+    var currentPage = CurrentPage;
+}
+<div id="layertop"></div>
+@if (!string.IsNullOrEmpty(currentPage.slider.ToString()))
+{
+    <div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="false" style="margin-bottom:0">
+        <!-- Indicators -->
+        <!-- Wrapper for slides -->
+        <div class="carousel-inner" role="listbox">
+            @{
+
+
+    var imagelist = currentPage.slider.ToString().Split(new string[] { "," }, StringSplitOptions.RemoveEmptyEntries);
+    var images = Umbraco.Content(imagelist);
+    int i = 0;
+
+
+
+    foreach (var homeSlides1 in images)
+    {
+
+        if (i == 0)
+        {
+            <div class="item active" style="background-image:url(@Umbraco.Media(homeSlides1.sliderImage).Url)">
+                @if (!string.IsNullOrEmpty(homeSlides1.sliderCaption))
+                {
+                    <div class="slideInfo">
+                        <p>
+                            @homeSlides1.sliderCaption
+                        </p>
+                    </div>
+                }
+            </div>
+        }
+        else
+        {
+            <div class="item last" style="background-image:url(@Umbraco.Media(homeSlides1.sliderImage).Url)">
+                @if (!string.IsNullOrEmpty(homeSlides1.sliderCaption))
+                {
+                    <div class="slideInfo">
+                        <p>
+                            @homeSlides1.sliderCaption
+                        </p>
+                    </div>
+                }
+            </div>
+
+        }
+        i++;
+    }
+
+
+
+
+            }
+        </div>
+        <ol class="carousel-indicators">
+            @{
+    var imagelist1 = currentPage.slider.ToString().Split(new string[] { "," }, StringSplitOptions.RemoveEmptyEntries);
+    var images1 = Umbraco.Content(imagelist);
+    int j = 0;
+
+
+
+    foreach (var homeSlides1 in images)
+    {
+
+        if (j == 0)
+        {
+
+
+            <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+
+
+
+
+        }
+        else
+        {
+            <li data-target="#myCarousel" data-slide-to="@j"></li>
+        }
+        j++;
+    }
+            }
+        </ol>
+        <!-- Left and right controls -->
+        <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+            <span class="sr-only">Previous</span>
+        </a>
+        <a class="right carousel-control last" href="#myCarousel" role="button" data-slide="next">
+            <span class="sr-only">Next</span>
+        </a>
+    </div>
+}
+
+@if (!string.IsNullOrEmpty(currentPage.projectdescription.ToString()))
+{
+    <div class="section">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <p><strong>Client:</strong><br />@currentPage.clients</p>
+                    <p><strong>Contract Sum:</strong><br />@currentPage.contractSum</p>
+                    <p><strong>Contract Period:</strong><br />@currentPage.contractPeriod</p>
+                    <!--<p>Links:<br />@currentPage.shortdescription</p>
+                    <div class="projectSocialWidget">
+                        <div class="facebook circle"><a class="fa fa-facebook" href="#" target="_blank">@currentPage.facbook</a></div>
+                        <div class="linkedIn circle"><a class="fa fa-linkedin" href="#" target="_blank">@currentPage.linkedin</a></div>
+                        <div class="twitter circle"><a class="fa fa-twitter" href="#" target="_blank">@currentPage.twitter</a></div>
+                        <div class="email circle"><a class="fa fa-envelope-o" href="#" target="_blank">@currentPage.email</a></div>
+                        <div class="download circle"><a class="fa fa-download" href="#" target="_blank">@currentPage.download</a></div>
+                        <div class="clear"></div>
+                    </div>-->
+                </div>
+                <div class="col-md-7 col-md-offset-1">
+                    @currentPage.projectdescription
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@if (!string.IsNullOrEmpty(currentPage.keyfacts.ToString()))
+{
+    <div class="section" style="">
+        <div class="container">
+            <div class="row">
+                <div class="sectionTitle"><h2 class="sectionHead">Key facts</h2></div>
+            </div>
+            <!-- <h4 style="text-align:center;font-size:18px; font-family:medium">The UK’s first residential and arts complex development to such a scale<br /><br />Delivery on programme despite substantial site constraints<br /><br />CHP serving the Arts complex and all apartments<br /><br />Double basement</h4> -->
+            @currentPage.keyfacts
+        </div>
+    </div>
+}
+
+@if (!string.IsNullOrEmpty(currentPage.relatedServices.ToString()))
+{
+    <div id="relatedServices" class="section">
+        <div class="container">
+            <div class="sectionTitle"><h2 class="sectionHead">Related Services</h2></div>
+            <div class="row" style="text-align:center">
+                @{
+    var relatedServicesList = CurrentPage.relatedServices.ToString().Split(new string[] { "," }, StringSplitOptions.RemoveEmptyEntries);
+    var relatedServices = Umbraco.Content(relatedServicesList);
+
+    foreach (var rs in relatedServices)
+    {
+        <div class="col-md-3 col-xs-6 servicesList @rs.serviceName">
+            <div class="row">
+                <div class="col-md-4 col-sm-5 col-xs-4">
+                    <div class="pictureContainer">
+                        <a href="@rs.Url" title=""><img src="@Umbraco.Media(rs.logo).Url" /></a>
+                    </div>
+                </div>
+                <div class="col-md-8 col-sm-7 col-xs-8 rel_servtitle">
+                    <h3><a href="@rs.Url">@rs.serviceTitle</a></h3>
+                </div>
+            </div>
+        </div>
+    }
+                }
+
+
+            </div>
+        </div>
+    </div>
+}
+
+
+<script src='//cdnjs.cloudflare.com/ajax/libs/jquery.touchswipe/1.6.4/jquery.touchSwipe.min.js'></script>
+<script>
+    $('#myCarousel').swipe({
+        swipe: function (event, direction, distance, duration, fingerCount, fingerData) {
+            if (direction == 'left')
+                $(this).carousel('next');
+            if (direction == 'right')
+                $(this).carousel('prev');
+        },
+        allowPageScroll: 'vertical'
+    });
+    //# sourceURL=pen.js
+</script>
+<link rel="stylesheet" href="/css/grid.css" />
+<script src="/scripts/modernizr.custom.js"></script>
+<script src="/scripts/grid.js"></script>
+<script>
+    $(".section:even").css("background-color", "#EFEEEE");
+</script>
+<script>
+    $(function () {
+        Grid.init();
+    });
+</script>
+

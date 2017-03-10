@@ -1,0 +1,26 @@
+﻿
+@inherits Umbraco.Web.Mvc.UmbracoTemplatePage
+@{
+    Layout = null;
+    var contact = Umbraco.Content(1118);
+   
+}
+<div class="section" id="contactWidget" style="">
+    <div class="sectionTitle contact_title" style="display:none"><h2 class="sectionHead">@contact.name</h2></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-10 col-md-offset-1">
+                <div class="row">
+                   
+					 <div class="col-md-4 col-sm-5 col-md-offset-1  col-sm-offset-1">
+                      @contact.description
+						<p class="loc_link"><a href="https://goo.gl/ZDD64v" target="_blank" title="Google Map Link">See location on Google Maps</a></p>
+                    </div>
+                    <div class="col-md-6 col-sm-6 col-md-offset-1"><a href="https://goo.gl/ZDD64v" target="_blank" title="Google Map Link"><img src="@Umbraco.Media(contact.image).Url" /></a></div>
+                   
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

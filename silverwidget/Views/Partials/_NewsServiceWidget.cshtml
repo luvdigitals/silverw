@@ -1,0 +1,210 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoTemplatePage
+@{
+    Layout = null;
+    var currentPage = CurrentPage;
+}
+
+<div id="peopleCard" class="newsW_card " style="overflow:hidden">
+    @foreach (var child in currentPage.Children)
+    {
+
+        if (child.DocumentTypeAlias == "newswidget")
+        {
+            var serList = child.selectNews.ToString().Split(new string[] { "," }, StringSplitOptions.RemoveEmptyEntries);
+            var service = Umbraco.Content(serList);
+            int count = 0;
+            foreach (var s in service)
+            {
+                count++;
+                string panel = "newsHoverPanel" + count;
+                string defaultnewsimage = !string.IsNullOrEmpty(s.Image.ToString()) ? Umbraco.Media(s.Image.ToString()).Url : "/media/1268/blanknews.jpg";
+                if (!string.IsNullOrEmpty(s.Image.ToString()))
+                {
+                    <div class="newspanelhide @panel">
+                        <div class="container">
+                            <div class="row">
+                                <div class="row" style="position: relative;display: inline-block;">
+                                    <div class="btnClose" id="btnClosePeople"></div>
+                                    <div class="col-md-7 col-sm-6">
+                                        <div class="pictireHolder"><img src="@defaultnewsimage" /></div>
+                                        <div class="clear"></div>
+                                    </div>
+                                    <div class="col-md-5 col-sm-6" style="position:static">
+                                        <h3>@s.title</h3>
+                                        @*<h4>Position</h4>*@
+                                        @if (s.publisheddate.ToString("dd/MM/yyyy") != "01/01/0001")
+                                        {
+                                            <p>Posted: @s.publisheddate.ToString("dd/MM/yyyy")</p>
+                                        }
+                                        <p>@s.GetGridHtml(Html, "description")</p>
+                                        @*<p class="more_btn">
+                                                <a class="globalBtn" href="mailto:careers@silverdcc.com">
+                                                    <i class="fa fa-envelope-o" href="#" target="_blank"></i>Email
+                                                </a>
+                                            </p>*@
+                                    </div>										
+                                </div>												
+                            </div>
+                        </div>
+                    </div>
+											
+                }
+            }
+        }
+    }
+    <div class="section" id="nSection" style="display: inline-block;width: 100%;">
+		<div id="emptyDiv" style="top:-60px;position:absolute"></div>
+        <div class="col-md-12">
+            <div class="rcnt_news" style="">
+                <div class="container">
+                    <div class="row">
+                        <div class="sectionTitle n_title"><h2 class="sectionHead">@currentPage.serviceName Updates</h2></div>
+                        <div class="col-md-10 col-md-offset-1">
+                            <div id="newsCarousel" class="carousel slide" data-ride="carousel" data-interval="false">
+                                <div class="padding30">
+                                    <!-- Wrapper for slides -->
+                                    <div class="carousel-inner" role="listbox">
+                                        @{
+
+                                            foreach (var child in currentPage.Children)
+                                            {
+
+                                                if (child.DocumentTypeAlias == "newswidget")
+                                                {
+                                                    var serList = child.selectNews.ToString().Split(new string[] { "," }, StringSplitOptions.RemoveEmptyEntries);
+                                                    var service = Umbraco.Content(serList);
+                                                    int i = 1;
+                                                    string classname = string.Empty;
+                                                    string newsContainer = "newsContainer";
+                                                    string moreDetails = "moreDetail";
+
+                                                    foreach (var s in service)
+                                                    {
+                                                        string defaultnewsimage = !string.IsNullOrEmpty(s.Image.ToString()) ? Umbraco.Media(s.Image.ToString()).Url : "/media/1268/blanknews.jpg";
+                                                        if (i == 1)
+                                                        {
+                                                            classname = "item active";
+                                                        }
+                                                        else
+                                                        {
+                                                            classname = "item";
+                                                        }
+                                                        if (!string.IsNullOrEmpty(s.Image.ToString()))
+                                                        {
+                                                            <div class="@classname">
+                                                                <div class="row">
+                                                                    <div class="col-md-8 col-sm-12"><img src="@defaultnewsimage" alt="Services" style="width:100%" /></div>
+                                                                    <div class="col-md-4 col-sm-12">
+                                                                        <h3>@s.title</h3>
+                                                                        @if (s.publisheddate.ToString("dd/MM/yyyy") != "01/01/0001")
+                                                                        {
+                                                                            <h4>@s.publisheddate.ToString("dd/MM/yyyy")</h4>
+                                                                        }
+                                                                        else
+                                                                        {
+
+                                                                            <h4></h4>}
+                                                                        <ul id="" class="" style="width: 100%;padding-left:0">
+                                                                            <li class="newsWidgetClick" id="@newsContainer@i">
+                                                                                <a data-largesrc="" data-title="More Details">
+                                                                                    <div class="pictireHolder"><p class="button" id="@moreDetails@i"><a class="globalBtn">MORE DETAILS</a></p></div>
+                                                                                </a>
+                                                                            </li>
+                                                                        </ul>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        }
+                                                        else
+                                                        {
+                                                            <div class="row @classname">
+                                                                <div class="col-md-12 col-sm-12 n_cnt">
+                                                                    <h3>@s.title</h3>
+                                                                    <div class=" row"><div class="col-md-4 n_date"><h4>@s.publisheddate.ToString("dd/MM/yyyy")</h4></div></div>
+                                                                    <div class="row news_content">
+                                                                        @s.GetGridHtml(Html, "description")
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        }
+
+                                                        i++;
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    </div>
+                                    <!-- Indicators -->
+                                   
+                                </div>
+                                <ol class="carousel-indicators" style="position:relative !important; bottom:auto; margin-top:50px;">
+                                    @{
+                                        foreach (var child in currentPage.Children)
+                                        {
+
+                                            if (child.DocumentTypeAlias == "newswidget")
+                                            {
+                                                var serList = child.selectNews.ToString().Split(new string[] { "," }, StringSplitOptions.RemoveEmptyEntries);
+                                                var service = Umbraco.Content(serList);
+                                                int j = 0;
+                                                foreach (var s in service)
+                                                {
+                                                    if (j == 0)
+                                                    {
+                                                        <li data-target="#newsCarousel" data-slide-to="@j" class="active"></li>
+                                                    }
+                                                    else
+                                                    {
+                                                        <li data-target="#newsCarousel" data-slide-to="@j"></li>
+                                                    }
+                                                    j++;
+                                                }
+                                            }
+                                        }
+
+
+                                    }
+                                </ol>
+									 <!-- Left and right controls -->
+                                            <a class="left carousel-control" href="#newsCarousel" role="button" data-slide="prev" style="left:-60px">
+                                                <span class="sr-only">Previous</span>
+                                            </a>
+                                            <a class="right carousel-control last" href="#newsCarousel" role="button" data-slide="next" style="right:-60px !important">
+                                                <span class="sr-only">Next</span>
+                                            </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<style>
+    .news_flow {
+        overflow: inherit;
+    }
+
+    .n_cnt h3 {
+        margin-bottom: 40px !important;
+    }
+
+    .n_date {
+        border-bottom: 3px solid #ccc;margin-bottom: 15px;
+    }
+
+    .grid-section .container {
+        width: auto !important;
+    }
+.left.carousel-control{display:block}
+</style>
+ 
+<script>
+
+
+
+
+ 
+   
+
+</script>

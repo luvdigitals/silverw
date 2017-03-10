@@ -1,0 +1,49 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoTemplatePage
+@{
+    Layout = null;
+    var currentPage = CurrentPage;
+}
+
+<div class="section" style="display:inline-block;width:100%;">
+    <div class="col-md-10 col-md-offset-1 ser_wdg">
+        <div class="cnt_block">
+
+            <!-- Services List-->
+            <div class="services_home">
+                <div class="sectionTitle"><h2 class="sectionHead">SERVICES</h2></div>
+                <div class="">
+                    <div class="col-md-10 col-md-offset-1" style="">
+                        @{
+
+                            foreach (var child in currentPage.Children)
+                            {
+
+                                var serList = child.selectServices.ToString().Split(new string[] { "," }, StringSplitOptions.RemoveEmptyEntries);
+                                var service = Umbraco.Content(serList);
+                                //int i = 0;
+
+                                foreach (var s in service)
+                                {
+
+                                    <div class="col-md-4 col-xs-6 servicesList @s.serviceName">
+                                        <div class="col-sm-4 col-xs-4 serv_img">
+                                            <a href="@s.Url" title="@s.serviceTitle">
+                                                <img src="@Umbraco.Media(s.logo).Url" />
+                                            </a>
+                                        </div>
+                                        <div class="col-sm-8 col-xs-8 serv_title">
+                                            <h4><a href="@s.Url" title="">@s.displayname<br /></a></h4>
+                                        </div>
+                                    </div>
+
+                                }
+                            }
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</div>

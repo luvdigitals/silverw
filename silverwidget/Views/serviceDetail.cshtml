@@ -1,0 +1,492 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoTemplatePage
+@{
+    Layout = "Master.cshtml";
+    var currentPage = CurrentPage;
+}
+<div id="banner" class="serv_banner">
+    <img class="abt_banimg serv_bann @currentPage.S_detail" src="@Umbraco.Media(currentPage.bannerImage).Url" />
+    <h1 class="bsHead @currentPage.serviceTitleClass">@Html.Raw(umbraco.library.RemoveFirstParagraphTag(currentPage.serviceTitle.ToString()))</h1>
+</div>
+<div id="layertop"></div>
+@{
+    foreach (var child in currentPage.Children)
+    {
+
+
+        if (child.DocumentTypeAlias == "introduction")
+        {
+            <div class="section abt_sec int_sec">
+                <div class="bannerHead">
+                    <h2 class="sectionHead">@child.title</h2>
+                </div>
+                <div id="introduction" class="" style="padding:0">
+                    <div class="container" style="">
+                        <div class="col-md-10 col-md-offset-1">
+                            @child.description
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+
+
+        else if (child.DocumentTypeAlias == "peopleWidget")
+        {
+
+            var peopleList = child.selectpeople.ToString().Split(new string[] { "," }, StringSplitOptions.RemoveEmptyEntries);
+            var people = Umbraco.Content(peopleList);
+
+
+            <div class="section leadershp">
+                <div class="mg-space-init container service_contactus">
+                    <div class="sectionTitle serv_cu ">
+                        <h2 class="sectionHead">@child.name</h2>
+                    </div>
+                    <div>
+                        <div class="col-md-10 col-md-offset-1">
+                            <div class="">
+                                <p>@child.Description</p>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                        <div class="mg-rows row serv_ppl text-center">
+                            @*@foreach (var p in people)
+                                {
+                                    <div class="container">
+                                        <div class="col-md-4 col-md-push-3 " style="padding-bottom:15px">
+                                            <p>@child.Description</p>
+                                        </div>
+
+                                        <div class="col-md-3 col-md-pull-4">
+                                            <a href="#" title="MG Row" class="mg-trigger">
+                                                <img class="img-responsive" src="@Umbraco.Media(p.peopleimage).Url" alt="">
+                                                <h3>@p.name</h3><p>@p.Qualification</p><p>@p.Designation</p>
+                                            </a>
+                                        </div>
+                                    </div>
+
+                                }*@
+                            @foreach (var p in people)
+                            {
+                                <div class="col-md-3 ppl_clm ">
+                                    <a href="#" title="MG Row" class="mg-trigger">
+                                        <img class="img-responsive" src="@Umbraco.Media(p.peopleimage).Url" alt="">
+                                        <h3>@p.name</h3><p>@p.Qualification</p><p>@p.Designation</p>
+                                    </a>
+                                </div>
+
+                            }
+                        </div>
+
+                    </div>
+                    <div class="mg-targets row">
+                        @foreach (var p in people)
+                        {
+                            <div class="">
+                                <div class="container">
+                                    <div class="row row-flex" style="position:static">
+                                        <div class="col-md-5  demo-item">
+                                            <img class="img-responsive" src="@Umbraco.Media(p.LargeImage).Url" alt="">
+                                            <div class="social_icons clearfix" style="clear:both;margin-top:10px;">
+                                                <a href="mailto:@p.Email">	<div class="globalBtn" style="border:none"><i class="fa fa-envelope-o" href="#" target="_blank"></i>EMAIL</div></a>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 demo-item pop_des">
+                                            <h3>@p.name</h3><p>@p.Qualification</p><p>@p.Designation</p><br>
+                                            @p.description
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        }
+
+        else if (child.DocumentTypeAlias == "multiUseContent")
+        {
+            <div class="section multiusecontent abt_sec">
+                <div class="container1">
+                    <div class="sectionTitle" style="text-align:center;"><h2 class="sectionHead">@child.title</h2></div>
+                    <div class="row">
+                        <div class="col-md-8 col-md-offset-2">
+                            @child.GetGridHtml(Html, "freeText")
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        }
+        else if (child.DocumentTypeAlias == "clientTestimonials")
+        {
+            <div id="testmonial" class="section client_testim" style="text-align:center;">
+                <div class="container">
+                    <div class="sectionTitle"><h2 class="sectionHead">@child.title</h2></div>
+                    <div class="row">
+                        <div class="col-md-10 col-md-offset-1">
+                            @child.description
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        }
+        else if (child.DocumentTypeAlias == "serviceWidget")
+        {
+
+            <div class="section rel_sec" style="display:inline-block;width:100%;">
+                <div class="col-md-10 col-md-offset-1 ser_wdg">
+                    <div class="cnt_block">
+                        <!-- Services List-->
+                        <div class="services_home">
+                            <div class="sectionTitle"><h2 class="sectionHead">@child.name</h2></div>
+                            <div class="container">
+                                <div class="" style="text-align:center">
+                                    @{
+
+            var serList = child.selectServices.ToString().Split(new string[] { "," }, StringSplitOptions.RemoveEmptyEntries);
+            var service = Umbraco.Content(serList);
+            //int i = 0;
+
+            foreach (var s in service)
+            {
+
+                <div class="col-md-3 col-xs-6 servicesList serv-centr @s.serviceName">
+                    <div class="col-sm-4 col-xs-4 serv_img">
+                        <a href="@s.Url" title="@s.serviceTitle">
+                            <img src="@Umbraco.Media(s.logo).Url" />
+                        </a>
+                    </div>
+                    <div class="col-sm-8 col-xs-8 serv_title" style="padding:0">
+                        <h4><a href="@s.Url" title="">@s.serviceTitle<br /></a></h4>
+                    </div>
+                </div>
+
+            }
+
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        }
+        else if (child.DocumentTypeAlias == "projectWidget")
+        {
+            var pList = child.selectProjects.ToString().Split(new string[] { "," }, StringSplitOptions.RemoveEmptyEntries);
+            var projects = Umbraco.Content(pList);
+            //int i = 0;
+            <div class="row section rel_prj" style="margin:0;">
+                <div class="container">
+                    <div class="sectionTitle"><h2 class="sectionHead">@child.name</h2></div>
+                    <div class="mg-space-init">
+                        <br>
+                        <div class="mg-rows row text-center">
+                            @foreach (var p in projects)
+                            {
+
+                                <div class="col-md-4 rel_pjts">
+                                    <a href="#" title="MG Row" class="mg-trigger">
+                                        <img class="img-responsive" src="@Umbraco.Media(p.projectLogo).Url" alt="">
+                                        <h3>@p.name</h3>
+                                    </a>
+                                </div>
+                            }
+                        </div>
+                        <div class="mg-targets row">
+                            @foreach (var p in projects)
+                            {
+                                <div class="">
+                                    <div class="container">
+                                        <div class="row row-flex">
+                                            <div class="col-md-6  demo-item">
+                                                <img class="img-responsive" src="@Umbraco.Media(p.projectLogo).Url" alt="">
+                                            </div>
+                                            <div class="col-md-6 demo-item pop_des">
+                                                <h3>@p.projecttitle</h3>
+                                                @p.shortdescription
+                                                <a href="@p.Url" class="view_d"> <div class="globalBtn" style="border:none">View Details</div></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+
+        else if (child.DocumentTypeAlias == "newswidget")
+        {
+            if (!string.IsNullOrEmpty(child.selectNews.ToString()))
+            {
+                @Html.Partial("_NewsServiceWidget");
+            }
+
+        }
+
+
+        else if (child.DocumentTypeAlias == "membership")
+        {
+
+
+            <div class="section" style="text-align:center;">
+                <div class="container">
+                    <div class="sectionTitle"><h2 class="sectionHead">@child.name</h2></div>
+                    <div class="">
+                        <div class=" text-center">
+                            <div class="row">
+                                @{
+
+            char[] splitChar = { ',' };
+            string[] cimagesList = child.Logos.ToString().Split(splitChar, StringSplitOptions.RemoveEmptyEntries);
+
+
+            //  var cimagesList = Model.Content.GetPropertyValue<string>("membership").Split(new string[] { "," }, StringSplitOptions.RemoveEmptyEntries).Select(int.Parse);
+
+            if (cimagesList != null)
+            {
+                var cimageCollection = Umbraco.TypedMedia(cimagesList).Where(x => x != null);
+                foreach (var p in cimageCollection)
+                {
+
+                    <div class="col-md-4 membershipLogos">
+                        <img src="@p.Url" alt="" />
+                    </div>
+
+                }
+            }
+
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        }
+        else if (child.DocumentTypeAlias == "recruitingNews")
+        {
+            <div id="peopleCard" class="pplCard" style="overflow:hidden;">
+                @{
+
+            var i = 0;
+
+            foreach (var c in child.Children)
+            {
+                if (c.DocumentTypeAlias == "slider")
+                {
+                    string defaultimage = !string.IsNullOrEmpty(c.sliderimage.ToString()) ? Umbraco.Media(c.sliderimage.ToString()).Url : "/media/1268/blanknews.jpg";
+                    <div class="newspanelhide peopleHoverPanel@(i)">
+                        <div class="container">
+                            <div class="row">
+                                <div class="row" style="position: relative;display: inline-block;">
+                                    <div class="btnClose" id="btnClosePeople"></div>
+                                    <div class="col-md-7 col-sm-6">
+                                        <div class="pictireHolder"><img src="@defaultimage" /></div>
+                                        <div class="clear"></div>
+                                    </div>
+                                    <div class="col-md-5 col-sm-6" style="position:static">
+                                        <h3>@c.Title</h3>
+                                        <h4>@c.Position</h4>
+                                        <p>Posted: @c.posteddate.ToString("dd/MM/yyyy")</p>
+                                        <p>@c.postionDescription</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+                i++;
+
+            }
+
+                }
+                <div class="section">
+                    <div class="container">
+                        <div class="row">
+                            <div class="sectionTitle"><h2 class="sectionHead">@child.title</h2></div>
+                            <div class="col-md-10 col-md-offset-1">
+                                <div id="Carousel" class="carousel slide" data-ride="carousel" data-interval="false">
+                                    <div class="padding30">
+                                        <!-- Wrapper for slides -->
+                                        <div class="carousel-inner" role="listbox">
+                                            @{
+
+
+            var m = 0;
+            foreach (var c in child.Children)
+            {
+                string defaultimage = !string.IsNullOrEmpty(c.sliderimage.ToString()) ? Umbraco.Media(c.sliderimage.ToString()).Url : "/media/1268/blanknews.jpg";
+                string classname = m == 0 ? "item active" : "item";
+                if (c.DocumentTypeAlias == "slider")
+                {
+                    <div class="@classname" style="height:auto !important;">
+                        <div class="row">
+                            <div class="col-md-8"><img src="@defaultimage" alt="Chania" style="width:100%" /></div>
+                            <div class="col-md-4">
+                                <h3>@c.Title</h3>
+                                <h4>@c.Position</h4>
+                                <p>Posted: @c.posteddate.ToString("dd/MM/yyyy")</p>
+                                <p>
+                                    @c.positionShortDescription
+                                </p>
+                                <ul id="" class="" style="width: 80%;">
+                                    <li id="peopleContainer@(m)" class="newsclick">
+                                        <a data-largesrc="" data-title="More Details">
+                                            <div class="pictireHolder"><p class="button" id="moreDetail1"><a class="globalBtn">MORE DETAILS</a></p></div>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                }
+                else if (c.DocumentTypeAlias == "jobVacancy")
+                {
+                    <div class="item item_gery">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h3>@c.name</h3>
+                                <h4>@c.jobtitle</h4>
+                                <p>Posted: @c.postdate.ToString("dd/MM/yyyy")</p>
+                                <p>Closing date: @c.closingdate.ToString("dd/MM/yyyy")</p>
+                                <p>@c.description</p>
+                                <div class="btm_btns" style="display: inline-block;width: 100%; margin: 15px 0;">
+                                    <div class="pull-left">
+                                        <p class="button"><a class="globalBtn" href="mailto:careers@silverdcc.com">APPLY</a></p>
+                                    </div>
+                                    @if (!string.IsNullOrEmpty(c.furtherdetailslink.ToString()))
+                                    {
+                                        <div class="pull-right">
+                                            <p class="button"><a class="globalBtn" target="_blank" href="@Umbraco.Media(c.furtherdetailslink).Url">@c.furtherdetailstext</a></p>
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+                m++;
+
+            }
+
+
+                                            }
+                                        </div>
+                                    </div>
+                                    <!-- Indicators -->
+                                    <ol class="carousel-indicators" style="position:relative !important; bottom:auto; margin-top:20px;">
+                                        @{
+
+            var j = 0;
+            foreach (var c in child.Children)
+            {
+                if (j == 0)
+                {
+                    <li data-target="#Carousel" data-slide-to="@j" class="active"></li>
+                }
+                else
+                {
+                    <li data-target="#Carousel" data-slide-to="@j"></li>
+                }
+                j++;
+            }
+
+
+                                        }
+                                    </ol>
+                                    <!-- Left and right controls -->
+                                    <a class="left carousel-control" href="#Carousel" role="button" data-slide="prev">
+                                        <span class="sr-only">Previous</span>
+                                    </a>
+                                    <a class="right carousel-control last" href="#Carousel" role="button" data-slide="next">
+                                        <span class="sr-only">Next</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+
+    }
+
+}
+  <script src="/Scripts/bootstrap.js"></script>
+<script src="/scripts/jquery.mg-space.js"></script>
+<script src="/scripts/grid.js"></script>
+<script>
+    $('.mg-space-init').mgSpace();
+
+
+</script>
+@*<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>*@
+<script>
+    $(".section:even").css("background-color", "#EFEEEE");
+
+    $(".newsclick").click(function () {
+        //$('html,body').animate({
+        //  scrollTop: $("#peopleCard").offset().top
+        //});
+        var hoverpanel = $(this).attr('id');
+        hoverpanel = hoverpanel.replace("peopleContainer", "peopleHoverPanel");
+        $('.' + hoverpanel).addClass('CurrentState');
+        $('#peopleCard').addClass('news_flow');
+    });
+
+ $(".newsWidgetClick").click(function () {
+        //$('html,body').animate({
+        //  scrollTop: $("#peopleCard").offset().top
+        //});
+        var hoverpanel = $(this).attr('id');
+        hoverpanel = hoverpanel.replace("newsContainer", "newsHoverPanel");
+        $('.' + hoverpanel).addClass('CurrentState');
+        $('#peopleCard').addClass('news_flow');
+    });
+
+    $('.carousel').carousel({
+        interval: false
+    }).on('slide.bs.carousel', function (e) {
+        var nextH = $(e.relatedTarget).height();
+        console.log(nextH)
+        console.log($(this).find('.active.item').parent())
+        $(this).find('.active.item').parent().animate({
+            height: nextH
+        }, 500);
+    });
+
+    // Check window height or width
+    if ($(window).width() <= 768)
+        $(".newsclick").click(function () {
+            $('html,body').animate({
+                scrollTop: $(".pplCard").offset().top - 50
+            });
+        });
+    if ($(window).width() >= 768)
+        $(".newsclick").click(function () {
+            $('html,body').animate({
+                scrollTop: $(".pplCard").offset().top - 150
+            });
+        });
+if ($(window).width() <= 768)
+        $(".newsWidgetClick").click(function () {
+            $('html,body').animate({
+                scrollTop: $(".newsW_card").offset().top - 50
+            });
+        });
+    if ($(window).width() >= 768)
+        $(".newsWidgetClick").click(function () {
+            $('html,body').animate({
+                scrollTop: $(".newsW_card").offset().top - 150
+            });
+        });
+
+		
+</script>

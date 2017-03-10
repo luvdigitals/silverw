@@ -1,0 +1,39 @@
+﻿
+
+@inherits Umbraco.Web.Mvc.UmbracoTemplatePage
+@{
+
+    var currentPage = CurrentPage;
+}
+
+
+@{
+
+    foreach (var child in currentPage.Children)
+
+    {
+        if (child.Name == "Social Values")
+        {
+            <div class="section" style="">
+                <div class="container">
+                    <div class="row">
+                        <div class="sectionTitle">
+                            <h2 class="sectionHead">Social Values</h2>
+                        </div>
+                        <div class="col-md-4">
+                            <p class="spclText"><span>£ 5,748</span><br />2016 Charity Donations</p>
+                        </div>
+                        <div class="col-md-4">
+                            <p class="spclText"><span>1000+</span><br />CPD training hours undertaken</p>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="spclText"><img src="/media/1120/qms.png" alt="" /></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        }
+
+    }
+}

@@ -1,0 +1,120 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoTemplatePage
+@{
+
+    var currentPage = CurrentPage;
+}
+<div class="section" id="" style="">
+    <div class="container">
+        <div class="row">
+           
+         
+                @{
+
+
+                    foreach (var child in currentPage.Children)
+
+                    {
+                        if (child.DocumentTypeAlias == "peopleWidget")
+                        {
+                            <div class="sectionTitle"><h2 class="sectionHead">@child.name</h2></div>
+                            var peopleList = child.selectpeople.ToString().Split(new string[] { "," }, StringSplitOptions.RemoveEmptyEntries);
+                            var people = Umbraco.Content(peopleList);
+                            <div class="mg-space-init container ladership_mgspace">
+<br />
+                                <div class="mg-rows row col-md-10 col-md-offset-2">
+                                    @foreach (var s in people)
+                                    {
+
+
+
+                                        <div class="col-md-5 col-sm-6 mg-trigger">
+                                            <img class=" img-responsive" src="@Umbraco.Media(s.peopleimage).Url" alt="" class="img-responsive" />
+                                            <h3>@s.name</h3>
+                                            <p>@s.qualification</p>
+                                            <p>@s.designation</p>
+                                        </div>
+                                      
+
+
+
+                                    }
+                                </div>
+                                <div class="mg-targets row">
+                                    @foreach (var s in people)
+                                    {
+
+                                        <div class="">
+                                            <div class="container">
+                                                <div class="row" >
+                                                    <div class="demo-item ">
+                                                        <div class="col-md-6 col-sm-6" style="position:static">
+                                                            <img src="@Umbraco.Media(s.largeimage).Url" alt="Content" class="img-responsive">
+														    <div class="social_icons">
+																<div><a href="mailto:@s.Email"> <div class="globalBtn" style="border:none"><i class="fa fa-envelope-o" target="_blank"></i>Email</div></a></div>
+
+															</div>
+														</div>
+                                                        <div class="col-md-6 col-sm-6 pop_des" style="position:static;">
+															<h3>@s.name</h3>
+															<p>@s.qualification</p><br>
+                                                            <p>@s.description</p>
+
+                                                        </div>
+															<div class="clearfix"></div>
+															
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                       
+
+
+                                    }
+
+                                </div>
+                            </div>
+                        }
+                    }
+
+                }
+
+
+
+
+
+
+
+           
+			
+        </div>
+    </div>
+</div>
+										
+<script src="/scripts/jquery.mg-space.js"></script>
+
+    <script>
+      $('.mg-space-init').mgSpace({
+  // Breakpoints at which the accordian changes # of columns
+  breakpointColumns: [
+      {
+          breakpoint: 0,
+          column: 1
+      },
+      {
+          breakpoint: 568,
+          column: 1
+      },
+      {
+          breakpoint: 768,
+          column: 2
+      },
+      {
+          breakpoint: 1200,
+          column: 2
+      }
+  ]});
+
+										
+	 				
+										
+    </script>										

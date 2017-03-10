@@ -1,0 +1,133 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoTemplatePage
+@{
+    Layout = "Master.cshtml";
+    var currentPage = CurrentPage;
+}
+<div id="banner" style="position:relative;width:100%;overflow:hidden/*background-image:url(/img/contact_banner.jpg);height: 460px;*/">
+    <img class="abt_banimg" src="@Umbraco.Media(currentPage.bannerImage).Url" alt="" />
+
+    <h1 class="banner_h" style="">@currentPage.pagetitle</h1>
+</div>
+<div id="layertop"></div>
+
+
+@Html.Partial("_Contact")
+
+@{
+
+    foreach (var child in currentPage.Children)
+    {
+
+        if (child.DocumentTypeAlias == "content")
+        {
+            <div class="section container prMedia">
+                <div class="sectionTitle" ><h2 class="sectionHead">@child.title</h2></div>
+                <div class="col-md-10 col-md-offset-1">@child.description</div>
+            </div>
+        }
+
+        else if (child.DocumentTypeAlias == "clientTestimonials")
+        {
+            <div id="testmonial" class="section client_testim" style="text-align:center">
+                <div class="container">
+                    <div class="sectionTitle"><h2 class="sectionHead">@child.title</h2></div>
+                    <div class="row">
+                        <div class="col-md-10 col-md-offset-1">
+                            @child.description
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        }
+
+        else if (child.DocumentTypeAlias == "peopleWidget")
+        {
+
+            var peopleList = child.selectpeople.ToString().Split(new string[] { "," }, StringSplitOptions.RemoveEmptyEntries);
+            var people = Umbraco.Content(peopleList);
+            <div class="sectionTitle section contact_title">
+                <h2 class="sectionHead">@child.name</h2>
+                <div class="mg-space-init cnct_mg container">
+                    <br />
+                    @foreach (var p in people)
+                    {
+                        <div class="mg-rows row col-md-offset-1">
+                            <div class="col-md-4">
+                                <img class="mg-trigger img-responsive" src="@Umbraco.Media(p.peopleImage).Url" alt="" style="margin:auto;">
+                                <h3>@p.Name</h3>
+                                <p>@p.Qualification</p>
+                                <p>@p.Designation</p>
+                            </div>
+                            <div class="col-md-4 ">
+
+                                @p.Description
+                            </div>
+                        </div>
+                        <div class="mg-targets row">
+                            <div class="">
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="demo-item ">
+                                            <div class="col-md-5" style="position:static">
+                                                <img src="@Umbraco.Media(p.LargeImage).Url" alt="Content" class="img-responsive">
+											<div class="social_icons">
+                                                <a href="mailto:@p.Email"> <div class="globalBtn" style="border:none"><i class="fa fa-envelope-o" target="_blank"></i>Email</div></a>
+                                            </div>
+
+                                            </div>
+                                            <div class="col-md-6 for_padd">
+                                                <h3>@p.Name</h3>
+                                                <p>@p.Qualification</p>
+                                                <p>@p.Designation</p>
+                                                <p>@p.description</p>
+                                            </div>
+                                            
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+
+        }
+    }
+
+
+}
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<link rel="stylesheet" href="/css/grid.css" />
+<script src="/scripts/modernizr.custom.js"></script>
+<script src="/scripts/grid.js"></script>
+<script>
+    $(function () {
+        Grid.init();
+    });
+    $('.menu ul li:nth-child(6) a').addClass('active');
+</script>
+<style>
+    /*
+                    .og-grid li {
+                        display: none;
+                    }*/
+
+    .og-grid li.mix {
+        display: none;
+        margin-bottom: 44px;
+        -webkit-transition: all 0s ease;
+        -moz-transition: all 0s ease;
+        -ms-transition: all 0s ease;
+    }
+</style>
+<script src="/scripts/jquery.mg-space.js"></script>
+<script>
+    $('.mg-space-init').mgSpace();
+
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mixitup/2.1.11/jquery.mixitup.min.js"></script>
+<script>
+    $(".section:even").css("background-color", "#EFEEEE");
+</script>

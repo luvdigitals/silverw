@@ -1,0 +1,97 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoTemplatePage
+@{
+    Layout = null;
+    var currentPage = CurrentPage;
+}
+<div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="false" style="margin-bottom:0">
+    <!-- Indicators -->
+    <!-- Wrapper for slides -->
+    <div class="carousel-inner" role="listbox">
+        @{
+
+            foreach (var child in currentPage.Children)
+            {
+                if (child.Name == "Banner")
+                {
+
+                    int i = 0;
+                    foreach (var homeSlides in child.children)
+                    {
+
+                        if (i == 0)
+                        {
+                            <div class="item active" style="background-image:url(@Umbraco.Media(homeSlides.sliderImage).Url)">
+                                @if (!string.IsNullOrEmpty(homeSlides.sliderCaption.ToString()))
+                                {
+                                    <div class="slideInfo">
+                                        <p>
+                                            @homeSlides.sliderCaption
+                                        </p>
+                                    </div>
+                                }
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="item last" style="background-image:url(@Umbraco.Media(homeSlides.sliderImage).Url)">
+                                @if (!string.IsNullOrEmpty(homeSlides.sliderCaption.ToString()))
+                                {
+                                    <div class="slideInfo">
+                                        <p>
+                                            @homeSlides.sliderCaption
+                                        </p>
+                                    </div>
+                                }
+                            </div>
+
+                        }
+                        i++;
+                    }
+                }
+
+
+            }
+        }
+    </div>
+    <ol class="carousel-indicators">
+        @{
+            foreach (var child in currentPage.Children)
+            {
+                if (child.Name == "Banner")
+                {
+                    int j = 0;
+
+                    foreach (var homeSlides1 in child.children)
+                    {
+
+                        if (j == 0)
+                        {
+                            <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                        }
+                        else
+                        {
+                            <li data-target="#myCarousel" data-slide-to="@j"></li>
+                        }
+                        j++;
+                    }
+
+                }
+            }
+        }
+    </ol>
+    <!-- Left and right controls -->
+    <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+        <span class="sr-only">Previous</span>
+    </a>
+    <a class="right carousel-control last" href="#myCarousel" role="button" data-slide="next">
+        <span class="sr-only">Next</span>
+    </a>
+</div>
+
+
+
+<style type="text/css">
+
+
+
+</style>	

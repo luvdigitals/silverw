@@ -1,0 +1,52 @@
+﻿
+@inherits Umbraco.Web.Mvc.UmbracoTemplatePage
+@{
+    Layout = null;
+    var currentPage = CurrentPage;
+}
+
+<div class="section" style="text-align:center;">
+    <div class="container">
+        <div class="sectionTitle"><h2 class="sectionHead">MEMBERSHIPS & ASSOCIATIONS</h2></div>
+        <div class="row">
+            <div class="container">
+
+
+
+                <div class="row">
+
+
+
+
+
+
+                    @foreach (var childPage in Model.Content.Children)
+                    {
+
+                        if (childPage.HasValue("logos"))
+                        {
+                            var cimagesList = childPage.GetPropertyValue<string>("logos").Split(new string[] { "," }, StringSplitOptions.RemoveEmptyEntries).Select(int.Parse);
+                            var cimageCollection = Umbraco.TypedMedia(cimagesList).Where(x => x != null);
+                            foreach (var p in cimageCollection)
+                            {
+
+                                <div class="col-md-4 membershipLogos">
+                                    <img src="@p.Url" alt="projectImages" />
+                                </div>
+
+                            }
+
+                        }
+                    }
+
+
+
+
+
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

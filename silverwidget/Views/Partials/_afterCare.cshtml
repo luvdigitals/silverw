@@ -1,0 +1,108 @@
+﻿
+@inherits Umbraco.Web.Mvc.UmbracoTemplatePage
+@{
+
+    var currentPage = CurrentPage;
+}
+
+
+<div id="banner">
+
+    <img src="@Umbraco.Media(currentPage.bannerImage).Url" />
+    <h1 class="bsHead @currentPage.serviceTitleClass">@currentPage.serviceTitle</h1>
+    <div class="bannerHead" style=""><h2 class="sectionHead">Introduction</h2></div>
+
+</div>
+
+
+@{
+
+    foreach (var child in currentPage.Children)
+    {
+
+
+        if (child.id == 1354)
+        {
+
+
+            <div id="introduction" class="section" style="">
+                <div class="container">
+
+                    @child.pagedescription
+                </div>
+
+            </div>
+        }
+        else if (child.id == 1355)
+        {
+
+
+            <div class="section" style="">
+                <div class="container">
+                    <div class="sectionTitle"><h2 class="sectionHead">MEMBERSHIPS & ASSOCIATIONS</h2></div>
+                    <div class="row">
+                        <div class="col-md-10 col-md-offset-1">
+                            <div class="row">
+                                <div class="col-md-5 col-sm-4 col-xs-6 membershipLogos"><img src="/media/1075/img350-150.png" /></div>
+                                <div class="col-md-2 col-sm-4 col-xs-6 membershipLogos"><img src="/media/1096/peopleimg.png" /></div>
+                                <div class="col-md-2 col-sm-4 col-xs-6 membershipLogos"><img src="/media/1096/peopleimg.png" /></div>
+                                 <div class="col-md-3 col-sm-4 col-xs-6 membershipLogos"><img src="/media/1075/img350-150.png" /></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        }
+        else if (child.id == 1356)
+        {
+
+            @Html.Partial("_ServicesWidget")
+
+        }
+        else if (child.id == 1384)
+        {
+
+            @Html.Partial("_ProjectWidget")
+
+        }
+        else if (child.id == 1385)
+        {
+
+                                                            <div id="testmonial" class="section" style="text-align:center">
+                                                                <div class="container">
+                                                                    <div class="sectionTitle"><h2 class="sectionHead">@child.pagetitle</h2></div>
+                                                                    <div class="row">
+                                                                        <div class="col-md-12">
+                                                                            @child.pagedescription
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                        }
+                                                        else if (child.id == 1386)
+                                                        {
+
+
+                                                            <div id="testmonial" class="section" style="text-align:center">
+                                                                <div class="container">
+                                                                    <div class="sectionTitle"><h2 class="sectionHead">@child.pagetitle</h2></div>
+                                                                    <div class="row">
+                                                                        <div class="col-md-12">
+                                                                            @child.pagedescription
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        }
+                                                        else if (child.id == 1353)
+                                                        {
+
+                                                              @Html.Partial("_mg-space")
+
+                                                            }
+                                                        }
+}
+
+

@@ -1,0 +1,253 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoTemplatePage
+@{
+    Layout = "Master.cshtml";
+    var currentPage = CurrentPage;
+}
+<div class="section controls" style="">
+    <div class="sectionTitle"><h2 class="sectionHead">@currentPage.pagetitle</h2></div>
+    <div class="container">
+        <div class="row">
+            <form class="controls" id="Filters">
+                <!-- We can add an unlimited number of "filter groups" using the following format: -->
+                <fieldset>
+                    <label>
+                        <select class="minimal">
+                            <option value="">Latest</option>
+                            <option value=".2017">2017</option>
+                            <option value=".2016">2016</option>
+                            <option value=".2015">2015</option>
+                            <option value=".2014">2014</option>
+                            <option value=".2013">2013</option>
+                            <option value=".2012">2012</option>
+                        </select>
+                    </label><span>Filter By year</span>
+                </fieldset>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="section">
+    <div class="mg-space-init news_mg">
+        <div class="container" id="Container">
+            <ul class="mg-rows container" id="og-grid">
+                @{
+                    foreach (var child in currentPage.Children)
+                    {
+                        if (child.DocumentTypeAlias == "news")
+                        {
+                            string publisheddate = child.publisheddate.ToString("dd/MM/yyyy");
+                            if (!string.IsNullOrEmpty(child.image.ToString()))
+                            {
+                                <li class="col-md-4 mg-row mix mg-trigger @child.newsyear">
+                                    <img class=" img-responsive" src="@Umbraco.Media(child.image).Url" alt="">
+                                    <h3>@child.title</h3>
+                                    <h4>@publisheddate</h4>
+                                </li>
+                            }
+                            else
+                            {
+
+                                <li class="col-md-4 mg-row mix item_withoutimg mg-trigger @child.newsyear">
+                                    <div class="wish_block ">
+                                        <h3>@child.title</h3>
+                                        <h4>@publisheddate</h4>
+                                        <p>@child.shortdescription</p>
+                                    </div>
+                                </li>
+                            }
+                        }
+                    }
+
+                }
+            </ul>
+        </div>
+        @{
+            <div class="mg-targets">
+                @foreach (var child in currentPage.Children)
+                {
+                    string publisheddate = child.publisheddate.ToString("dd/MM/yyyy");
+                    if (child.DocumentTypeAlias == "news")
+                    {
+                        if (!string.IsNullOrEmpty(child.image.ToString()))
+                        {
+                            <div class="mg-target">
+                                <div class="container og-details">
+                                    <div class="row">
+                                        <div class="col-md-6 demo-item">
+                                            <img src="@Umbraco.Media(child.image).Url" alt="Content" class="img-responsive">
+                                        </div>
+                                        <div class="col-md-6">
+                                            <h3>@child.title</h3>
+                                            <h4>@publisheddate</h4>
+                                            @child.GetGridHtml("description")
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="mg-target">
+                                <div class="container og-details">
+                                    <h3>@child.title</h3>
+                                    <h4>@publisheddate</h4>
+                                    @child.GetGridHtml("description")
+                                </div>
+                            </div>
+                        }
+
+                    }
+                }
+            </div>
+        }
+        @*<div class="col-md-4 mg-row" >
+                <img class="mg-trigger img-responsive" src="/media/1255/thamesmead_southmere_web_500x334.jpg" alt="">
+                <h3>title</h3>
+                <h4>publisheddate</h4>
+            </div>
+            <div class="col-md-4 mg-row">
+                <img class="mg-trigger img-responsive" src="/media/1262/slidesd.jpg" alt="">
+                <h3>title</h3>
+                <h4>publisheddate</h4>
+            </div>
+            <div class="col-md-4 mg-row" >
+                <img class="mg-trigger img-responsive" src="/media/1086/nmande1.jpg" alt="">
+                <h3>title</h3>
+                <h4>publisheddate</h4>
+            </div>*@
+
+        @*</div>*@
+        @*<div class="mg-targets">
+
+                <div class="mg-target">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-6 demo-item">
+                                <img src="/media/1255/thamesmead_southmere_web_500x334.jpg" alt="Content" class="img-responsive">
+
+                            </div>
+                            <div class="col-md-6">
+                                <span>Lorem ipsum dolor sit amet.</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="mg-target">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-6 demo-item">
+                                <img src="/media/1262/slidesd.jpg" alt="Content" class="img-responsive">
+
+
+                            </div>
+                            <div class="col-md-6">
+                                <span>Lorem ipsum dolor sit amet.</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="mg-target">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-6 demo-item">
+                                <img src="/media/1086/nmande1.jpg" alt="Content" class="img-responsive">
+
+                            </div>
+                            <div class="col-md-6">
+                                <span>Lorem ipsum dolor sit amet.</span>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>*@
+
+    </div>
+</div>
+<style>
+    /*
+    .og-grid li {
+        display: none;
+    }*/
+    #Filters {
+        width: 300px;
+        margin: 0 auto;
+    }
+
+    select {
+        padding: 5px 30px 5px 20px;
+        font-family: bold;
+        cursor: pointer;
+        background-color: #efeeee;
+        border: 2px solid #4a4a4a;
+        font-size: 18px;
+        display: inline;
+    }
+
+    #Filters span {
+        font-family: bold;
+        font-size: 18px;
+        display: inline-block;
+        margin-left: 15px;
+    }
+
+    .og-grid li.mix, .mg-rows .mix {
+        display: none;
+        margin: 22px 0;
+        -webkit-transition: all 0s ease;
+        -moz-transition: all 0s ease;
+        -ms-transition: all 0s ease;
+    }
+
+    select option {
+        background: #fff;
+    }
+
+    select {
+        appearance: none;
+        -moz-appearance: none; /* Firefox */
+        -webkit-appearance: none; /* Safari and Chrome */
+    }
+
+    label {
+        margin: auto;
+        text-align: center;
+        display: inline;
+        position: relative;
+    }
+
+        label:after {
+            content: '\25BC';
+            display: inline-block;
+            color: #000;
+            margin-left: -17px; /* remove the damn :after space */
+            pointer-events: none; /* let the click pass trough */
+            position: absolute;
+            right: 12px;
+            top: -2px;
+        }
+</style>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mixitup/2.1.11/jquery.mixitup.min.js"></script>
+<script src="/scripts/newsFilter.js">
+
+</script>
+<script src="/scripts/jquery.mg-space.js"></script>
+<link rel="stylesheet" href="/css/grid.css" />
+<script src="/scripts/modernizr.custom.js"></script>
+<script src="/scripts/grid.js"></script>
+<script>
+    $(".section:even").css("background-color", "#EFEEEE");
+</script>
+<script>
+    $(function () {
+        Grid.init();
+    });
+    $('.menu ul li:nth-child(4) a').addClass('active');
+</script>
+<script>
+    $(function () {
+        $('.mg-space-init').mgSpace();
+    });
+</script>

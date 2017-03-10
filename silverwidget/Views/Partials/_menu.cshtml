@@ -1,0 +1,63 @@
+﻿
+@inherits Umbraco.Web.Mvc.UmbracoTemplatePage
+@{
+    Layout = null;
+    var currentPage = CurrentPage;
+}
+<div id="mainNav" class="menu">
+            <div class="container menu_b">
+                <div class="row" style="position:static">
+                    <ul>
+                        <li><a href="/about-us">About us</a></li>
+                        <li id="serviceLinkli">
+                            <a id="serviceLink" href="#" >Services</a>
+                            <div class="submenu">
+                                <div class="container">
+                                    <div class="row" style="">
+
+                                        @{
+
+                                            var services = Umbraco.Content(1072);
+
+                                            if (services.Children.Any())
+                                            {
+
+
+                                                foreach (var pr in services.Children)
+                                                {
+                                                <div class="col-md-3 col-sm-5 menu_servicesList @pr.serviceName">
+                                                    <div class="col-sm-4 col-xs-4 col-md-4 menu_serv_img">
+														<a href="@pr.url" title="#">
+                                                        <img src="@Umbraco.Media(pr.logo).Url" />
+                                                    	</a>
+                                                    </div>
+													<div class="col-sm-8 col-xs-8 col-md-8 menu_serv_title">
+														<h4><a href="@pr.Url" title="">@pr.displayname<br /></a></h4>
+                                                	</div>
+												</div>
+                                                }
+
+                                            }
+                                            }
+
+
+
+
+
+
+
+
+
+
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li><a href="/project">Projects</a></li>
+                        <li><a href="/news">News</a></li>
+                        <li><a href="/careers">Careers</a></li>
+                        <li class="last"><a href="/contact-us">Contact</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
