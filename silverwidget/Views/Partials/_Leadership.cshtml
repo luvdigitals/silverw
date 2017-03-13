@@ -27,11 +27,14 @@
 
 
 
-                                        <div class="col-md-5 col-sm-6 mg-trigger">
-                                            <img class=" img-responsive" src="@Umbraco.Media(s.peopleimage).Url" alt="" class="img-responsive" />
-                                            <h3>@s.name</h3>
-                                            <p>@s.qualification</p>
-                                            <p>@s.designation</p>
+                                        <div class="col-md-5 col-sm-6">
+                                            <div class=" mg-trigger">
+                                                <img class=" img-responsive" src="@Umbraco.Media(s.peopleimage).Url" alt="" class="img-responsive" />
+                                                <h3>@s.name</h3>
+                                                <p>@s.qualification</p>
+                                                <p>@s.designation</p>
+                                            </div>
+                                            <p><a href="mailto:@s.email" style="text-decoration:underline !important"> @s.Email</a></p>
                                         </div>
                                       
 

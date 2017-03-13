@@ -632,13 +632,22 @@ a:active {
 }
 
 .rel_sec {
-    padding-bottom: 0;
+    padding-bottom: 20px;
 }
 
 .sectionTitle {
     text-align: center;
     display: block;
 }
+/*.abt_sec .sectionTitle, .abt_sec .bannerHead{padding-top:80px}
+.int_sec{padding-top:120px;top:-80px;}
+.leadershp{padding-top:0 !important}*/
+.topclr{background: rgb(239, 238, 238);
+    display: inline-block;
+    width: 100%;
+    height: 80px;
+    position: absolute;
+    top: -80px;}
 
 .sectionHead {
     font-family: bold;
@@ -683,7 +692,7 @@ a:active {
     padding-bottom: 22px;
     padding: 10px;
     height: 120px;
-    margin-bottom: 22px;
+    margin-top: 22px;
 }
 
     .servicesList, .servicesList a {
@@ -742,7 +751,7 @@ a:active {
         vertical-align: middle;
     }
 
-
+.services_home .sectionTitle .sectionHead{margin:0 0 20px 0}
 .services_home .Building h4 a {
    /* margin: 10px 0;
     padding-top: 25px;*/
@@ -1456,7 +1465,7 @@ col-xs-6.membershipLogos {
 .mg-rows {
     position: relative;
 }
-
+.mg-row{margin-bottom:0 !important }
 .mg-row a {
     color: #000;
 }
@@ -1552,9 +1561,9 @@ col-xs-6.membershipLogos {
 
 .serv_ppl .ppl_clm {
     float: none;
-    display: inline-flex;
+    display: inline-block;
     text-align: left;
-    width: 33%;
+    width: 33%;vertical-align:top;
 }
 
 .rel_pjts {
@@ -2109,9 +2118,9 @@ col-xs-6.membershipLogos {
 }
 
 .abt_sec {
-    padding-top: 120px;
+    //padding-top: 120px;
 	position: relative;
-    top: -80px;
+    //top: -80px;
 }
 /*.contact_title{padding:30px 0;}*/
 /*Services Inner*/
@@ -3326,10 +3335,11 @@ label.css-label {
 }
 
 @media screen and (max-width: 768px) {
+    .topclr{display:none}
     #projectsFilter.mg-rows {
         text-align: center;
     }
-
+    .mg-trigger{display:inline-block;}
     .mg-trigger img {
         margin: auto;
     }
