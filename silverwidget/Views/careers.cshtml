@@ -38,38 +38,42 @@
         {
             <div id="peopleCard" class="" style="overflow:hidden;">
                 @{
-
             var i = 0;
-
             foreach (var c in child.Children)
             {
-                if (c.DocumentTypeAlias == "slider")
+                if (c.DocumentTypeAlias == "sliderNews")
                 {
-                    string defaultimage = !string.IsNullOrEmpty(c.sliderimage.ToString()) ? Umbraco.Media(c.sliderimage.ToString()).Url : "/media/1268/blanknews.jpg";
-                <div class="newspanelhide peopleHoverPanel@(i)">
-                    <div class="container">
-                        <div class="row">
-                            <div class="row" style="position: relative;display: inline-block;">
-                                <div class="btnClose" id="btnClosePeople"></div>
-                                <div class="col-md-7 col-sm-6">
-                                    <div class="pictireHolder"><img src="@defaultimage" /></div>
-                                    <div class="clear"></div>
-                                </div>
-                                <div class="col-md-5 col-sm-6" style="position:static">
-                                    <h3>@c.Title</h3>
-                                    <h4>@c.Position</h4>
-                                    <p>Posted: @c.posteddate.ToString("dd/MM/yyyy")</p>
-                                    <p>@c.postionDescription</p>
+                    //string defaultimage = !string.IsNullOrEmpty(c.sliderimage.ToString()) ? Umbraco.Media(c.sliderimage.ToString()).Url : "/media/1268/blanknews.jpg";
+                    <div class="newspanelhide peopleHoverPanel@(i)">
+                        <div class="container">
+                            <div class="row">
+                                <div class="row" style="position: relative;display: inline-block;">
+                                    <div class="btnClose" id="btnClosePeople"></div>
+                                    <div class="col-md-12 col-sm-12 n_cnt">
+                                        <h3>@c.title</h3>
+                                        <div class=" row"><div class="col-md-4 n_date"><h4>@c.posteddate.ToString("dd/MM/yyyy")</h4></div></div>
+                                        <div class="row news_content">
+                                            @c.postionDescription
+                                        </div>
+                                    </div>
+                                    @*<div class="col-md-7 col-sm-6">
+                                            <div class="pictireHolder"><img src="@defaultimage" /></div>
+                                            <div class="clear"></div>
+                                        </div>*@
+                                    @*<div class="col-md-5 col-sm-6" style="position:static">
+                                            <h3>@c.Title</h3>
+                                            <h4>@c.Position</h4>
+                                            <p>Posted: @c.posteddate.ToString("dd/MM/yyyy")</p>
+                                            <p>@c.postionDescription</p>
+                                        </div>*@
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
                 }
                 i++;
 
             }
-
                 }
                 <div class="section">
                     <div class="container">
@@ -82,66 +86,82 @@
                                         <div class="carousel-inner" role="listbox">
                                             @{
 
-
             var m = 0;
             foreach (var c in child.Children)
             {
                 string defaultimage = !string.IsNullOrEmpty(c.sliderimage.ToString()) ? Umbraco.Media(c.sliderimage.ToString()).Url : "/media/1268/blanknews.jpg";
                 string classname = m == 0 ? "item active" : "item";
-                if (c.DocumentTypeAlias == "slider")
+                if (c.DocumentTypeAlias == "sliderNews")
                 {
-                                            <div class="@classname" style="height:auto !important;">
-                                                <div class="row">
-                                                    <div class="col-md-8"><img src="@defaultimage" alt="Chania" style="width:100%" /></div>
-                                                    <div class="col-md-4">
-                                                        <h3>@c.Title</h3>
-                                                        <h4>@c.Position</h4>
-                                                        <p>Posted: @c.posteddate.ToString("dd/MM/yyyy")</p>
-                                                        <p>
-                                                            @c.positionShortDescription
-                                                        </p>
-                                                        <ul id="" class="" style="width: 80%;">
-                                                            <li id="peopleContainer@(m)" class="newsclick">
-                                                                <a data-largesrc="" data-title="More Details">
-                                                                    <div class="pictireHolder"><p class="button" id="moreDetail1"><a class="globalBtn">MORE DETAILS</a></p></div>
-                                                                </a>
-                                                            </li>
-                                                        </ul>
-                                                    </div>
+                    <div class="@classname" style="height:auto !important;">
+                        <div class="row">
+                            <div class="col-md-8"><img src="@defaultimage" alt="Chania" style="width:100%" /></div>
+                            <div class="col-md-4">
+                                <h3>@c.Title</h3>
+                                <h4>@c.Position</h4>
+                                <p>Posted: @c.posteddate.ToString("dd/MM/yyyy")</p>
+                                <p>
+                                    @c.positionShortDescription
+                                </p>
+                                @if (!c.hideMoreDetails)
+                                {
+                                    <ul id="" class="" style="width: 80%;">
+                                        <li class="removeliststyle">
+                                            <a data-largesrc="" data-title="More Details">
+                                                <div class="pictireHolder">
+                                                    <p class="button" id="moreDetail1">
+                                                        @if (c.HasValue("moreDetailsLink") && c.moreDetailsLink.ToString().Length > 2)
+                                                        {
+                                                            foreach (var item in c.moreDetailsLink)
+                                                            {
+                                                                var linkUrl = (bool)item.isInternal ? Umbraco.NiceUrl(item.Value<int>("internal")) : item.link;
+                                                                var linkTarget = (bool)item.newWindow ? "_blank" : null;
+                                                                <a class="globalBtn" href="@linkUrl" target="@linkTarget">@item.caption</a>
+                                                            }
+                                                        }
+                                                        else
+                                                        {
+                                                            <a id="peopleContainer@(m)" class="globalBtn newsclick">MORE DETAILS</a>
+                                                        }
+                                                    </p>
                                                 </div>
-                                            </div>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                }
+                            </div>
+                        </div>
+                    </div>
 
                 }
                 else if (c.DocumentTypeAlias == "jobVacancy")
                 {
-                                            <div class="item item_gery">
-                                                <div class="row">
-                                                    <div class="col-md-12">
-                                                        <h3>@c.name</h3>
-                                                        <h4>@c.jobtitle</h4>
-                                                        <p>Posted: @c.postdate.ToString("dd/MM/yyyy")</p>
-                                                        <p>Closing date: @c.closingdate.ToString("dd/MM/yyyy")</p>
-                                                        <p>@c.description</p>
-                                                        <div class="btm_btns" style="display: inline-block;width: 100%; margin: 15px 0;">
-                                                            <div class="pull-left col-sm-6 col-xs-12" style="padding:0">
-                                                                <p class="button"><a class="globalBtn" href="mailto:careers@silverdcc.com">APPLY</a></p>
-                                                            </div>
-                                                            @if (!string.IsNullOrEmpty(c.furtherdetailslink.ToString()))
-                                            {
-                                    <div class="pull-right col-sm-4 col-sm-offset-1 col-xs-12" style="padding:0">
-                                        <p class="button"><a class="globalBtn" target="_blank" href="@Umbraco.Media(c.furtherdetailslink).Url">@c.furtherdetailstext</a></p>
+                    <div class="item item_gery">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h3>@c.name</h3>
+                                <h4>@c.jobtitle</h4>
+                                <p>Posted: @c.postdate.ToString("dd/MM/yyyy")</p>
+                                <p>Closing date: @c.closingdate.ToString("dd/MM/yyyy")</p>
+                                <p>@c.description</p>
+                                <div class="btm_btns" style="display: inline-block;width: 100%; margin: 15px 0;">
+                                    <div class="pull-left">
+                                        <p class="button"><a class="globalBtn" href="mailto:careers@silverdcc.com">APPLY</a></p>
                                     </div>
-                                            }
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                    @if (!string.IsNullOrEmpty(c.furtherdetailslink.ToString()))
+                                    {
+                                        <div class="pull-right">
+                                            <p class="button"><a class="globalBtn" target="_blank" href="@Umbraco.Media(c.furtherdetailslink).Url">@c.furtherdetailstext</a></p>
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 }
                 m++;
 
             }
-
-
                                             }
                                         </div>
                                     </div>
@@ -154,16 +174,14 @@
             {
                 if (j == 0)
                 {
-                                        <li data-target="#Carousel" data-slide-to="@j" class="active"></li>
+                    <li data-target="#Carousel" data-slide-to="@j" class="active"></li>
                 }
                 else
                 {
-                                        <li data-target="#Carousel" data-slide-to="@j"></li>
+                    <li data-target="#Carousel" data-slide-to="@j"></li>
                 }
                 j++;
             }
-
-
                                         }
                                     </ol>
                                     <!-- Left and right controls -->
@@ -215,7 +233,6 @@
                     <div class="row">
                         <div class="col-md-10 col-md-offset-1">
                             <div class="row">
-
                                 <div class="col-md-4 col-sm-5 col-md-offset-1  col-sm-offset-1">
                                     @child.description
                                     <p class="loc_link"><a href="https://goo.gl/ZDD64v" target="_blank" title="Google Map Link">See location on Google Maps</a></p>
@@ -232,7 +249,6 @@
         }
     }
 }
-
 
 <link rel="stylesheet" href="/css/grid.css" />
 <script src="/scripts/modernizr.custom.js"></script>
@@ -322,7 +338,7 @@
 
     $(".newsclick").click(function () {
         //$('html,body').animate({
-          //  scrollTop: $("#peopleCard").offset().top
+        //  scrollTop: $("#peopleCard").offset().top
         //});
         var hoverpanel = $(this).attr('id');
         hoverpanel = hoverpanel.replace("peopleContainer", "peopleHoverPanel");
@@ -340,18 +356,20 @@
             height: nextH
         }, 500);
     });
-		
-	// Check window height or width
-		if ($(window).width() <= 768)
-		 $(".newsclick").click(function() {
-    $('html,body').animate({
-        scrollTop: $("#peopleCard").offset().top-50});
-});
-	if ($(window).width() >= 768)
-		 $(".newsclick").click(function() {
-    $('html,body').animate({
-        scrollTop: $("#peopleCard").offset().top-150});
-});	
+
+    // Check window height or width
+    if ($(window).width() <= 768)
+        $(".newsclick").click(function () {
+            $('html,body').animate({
+                scrollTop: $("#peopleCard").offset().top - 50
+            });
+        });
+    if ($(window).width() >= 768)
+        $(".newsclick").click(function () {
+            $('html,body').animate({
+                scrollTop: $("#peopleCard").offset().top - 150
+            });
+        });
 
 </script>
 <script src="/scripts/projectFilter.js"></script>

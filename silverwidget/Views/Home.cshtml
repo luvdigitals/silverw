@@ -12,30 +12,36 @@
             {
                 if (child.DocumentTypeAlias == "recruitingNews")
                 {
-
                     <div id="peopleCard" class="" style="overflow:hidden;">
                         @{
                     var i = 0;
                     foreach (var c in child.Children)
                     {
-                        if (c.DocumentTypeAlias == "slider")
+                        if (c.DocumentTypeAlias == "sliderNews")
                         {
-                            string defaultimage = !string.IsNullOrEmpty(c.sliderimage.ToString()) ? Umbraco.Media(c.sliderimage.ToString()).Url : "/media/1268/blanknews.jpg";
+                            //string defaultimage = !string.IsNullOrEmpty(c.sliderimage.ToString()) ? Umbraco.Media(c.sliderimage.ToString()).Url : "/media/1268/blanknews.jpg";
                             <div class="newspanelhide peopleHoverPanel@(i)">
                                 <div class="container">
                                     <div class="row">
                                         <div class="row" style="position: relative;display: inline-block;">
                                             <div class="btnClose" id="btnClosePeople"></div>
-                                            <div class="col-md-7 col-sm-6">
-                                                <div class="pictireHolder"><img src="@defaultimage" /></div>
-                                                <div class="clear"></div>
+                                            <div class="col-md-12 col-sm-12 n_cnt">
+                                                <h3>@c.title</h3>
+                                                <div class=" row"><div class="col-md-4 n_date"><h4>@c.posteddate.ToString("dd/MM/yyyy")</h4></div></div>
+                                                <div class="row news_content">
+                                                    @c.postionDescription
+                                                </div>
                                             </div>
-                                            <div class="col-md-5 col-sm-6" style="position:static">
-                                                <h3>@c.Title</h3>
-                                                <h4>@c.Position</h4>
-                                                <p>Posted: @c.posteddate.ToString("dd/MM/yyyy")</p>
-                                                <p>@c.postionDescription</p>
-                                            </div>
+                                            @*<div class="col-md-7 col-sm-6">
+                                                    <div class="pictireHolder"><img src="@defaultimage" /></div>
+                                                    <div class="clear"></div>
+                                                </div>*@
+                                            @*<div class="col-md-5 col-sm-6" style="position:static">
+                                                    <h3>@c.Title</h3>
+                                                    <h4>@c.Position</h4>
+                                                    <p>Posted: @c.posteddate.ToString("dd/MM/yyyy")</p>
+                                                    <p>@c.postionDescription</p>
+                                                </div>*@
                                         </div>
                                     </div>
                                 </div>
@@ -44,8 +50,6 @@
                         i++;
 
                     }
-
-                    // }
                         }
                         <div class="section">
                             <div class="container">
@@ -63,7 +67,7 @@
                     {
                         string defaultimage = !string.IsNullOrEmpty(c.sliderimage.ToString()) ? Umbraco.Media(c.sliderimage.ToString()).Url : "/media/1268/blanknews.jpg";
                         string classname = m == 0 ? "item active" : "item";
-                        if (c.DocumentTypeAlias == "slider")
+                        if (c.DocumentTypeAlias == "sliderNews")
                         {
                             <div class="@classname" style="height:auto !important;">
                                 <div class="row">
@@ -75,13 +79,32 @@
                                         <p>
                                             @c.positionShortDescription
                                         </p>
-                                        <ul id="" class="" style="width: 80%;">
-                                            <li id="peopleContainer@(m)" class="newsclick">
-                                                <a data-largesrc="" data-title="More Details">
-                                                    <div class="pictireHolder"><p class="button" id="moreDetail1"><a class="globalBtn">MORE DETAILS</a></p></div>
-                                                </a>
-                                            </li>
-                                        </ul>
+                                        @if (!c.hideMoreDetails)
+                                        {
+                                            <ul id="" class="" style="width: 80%;">
+                                                <li class="removeliststyle">
+                                                    <a data-largesrc="" data-title="More Details">
+                                                        <div class="pictireHolder">
+                                                            <p class="button" id="moreDetail1">
+                                                                @if (c.HasValue("moreDetailsLink") && c.moreDetailsLink.ToString().Length > 2)
+                                                                {
+                                                                    foreach (var item in c.moreDetailsLink)
+                                                                    {
+                                                                        var linkUrl = (bool)item.isInternal ? Umbraco.NiceUrl(item.Value<int>("internal")) : item.link;
+                                                                        var linkTarget = (bool)item.newWindow ? "_blank" : null;
+                                                                        <a class="globalBtn" href="@linkUrl" target="@linkTarget">@item.caption</a>
+                                                                    }
+                                                                }
+                                                                else
+                                                                {
+                                                                    <a id="peopleContainer@(m)" class="globalBtn newsclick">MORE DETAILS</a>
+                                                                }
+                                                            </p>
+                                                        </div>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        }
                                     </div>
                                 </div>
                             </div>
@@ -91,7 +114,6 @@
                         {
                             <div class="item item_gery" style="height:auto !important;background: #4a4a4a ;padding:15px;">
                                 <div class="row">
-
                                     <div class="col-md-12" style="color:#fff">
                                         <h3>@c.name</h3>
                                         <h4>@c.jobtitle</h4>
@@ -116,10 +138,7 @@
                         m++;
 
                     }
-
-
-                    // }
-}
+                                                    }
                                                 </div>
                                             </div>
                                             <!-- Indicators -->
@@ -139,9 +158,6 @@
                         }
                         j++;
                     }
-
-
-                    // }
                                                 }
                                             </ol>
                                             <!-- Left and right controls -->
