@@ -1473,6 +1473,7 @@ col-xs-6.membershipLogos {
 .mg-trigger {
     cursor: pointer;
 }
+.mg-trigger:nth-child(4){clear:both}
 
 .mg-space {
     display: none;
