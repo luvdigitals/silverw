@@ -23,12 +23,12 @@
                             <div class="newspanelhide peopleHoverPanel@(i)">
                                 <div class="container">
                                     <div class="row">
-                                        <div class="row" style="position: relative;display: inline-block;">
+                                        <div class="row" style="position: relative;display: inline-block;width:100%;margin:0">
                                             <div class="btnClose" id="btnClosePeople"></div>
                                             <div class="col-md-12 col-sm-12 n_cnt">
                                                 <h3>@c.title</h3>
-                                                <div class=" row"><div class="col-md-4 n_date"><h4>@c.posteddate.ToString("dd/MM/yyyy")</h4></div></div>
-                                                <div class="row news_content">
+                                                <div class=" row" style="margin:0"><div class="col-md-4 n_date" style="padding:0"><h4>@c.posteddate.ToString("dd/MM/yyyy")</h4></div></div>
+                                                <div class=" news_content">
                                                     @c.postionDescription
                                                 </div>
                                             </div>

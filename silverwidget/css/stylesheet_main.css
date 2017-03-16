@@ -1066,33 +1066,33 @@ col-xs-6.membershipLogos {
     position: relative;
 }
 
-.peopleContainer, .newsclick {
+.peopleContainer, .newsclick, .removeliststyle {
     color: #4a4a4a;
     cursor: pointer;
     list-style-type: none;
 }
 
-    .peopleContainer .pictireHolder img, .newsclick .pictireHolder img {
+    .peopleContainer .pictireHolder img, .newsclick .pictireHolder img, .removeliststyle .pictireHolder img {
         display: block;
         width: 100%;
     }
 
-    .peopleContainer h3, .newsclick h3 {
+    .peopleContainer h3, .newsclick h3, .removeliststyle h3 {
         font-family: medium;
         margin-bottom: 0;
     }
 
-    .peopleContainer h4, .newsclick h4 {
+    .peopleContainer h4, .newsclick h4, .removeliststyle h4 {
         font-family: medium;
         margin-top: 0;
         margin-bottom: 0;
     }
 
-    .peopleContainer p, .newsclick p {
+    .peopleContainer p, .newsclick p, .removeliststyle p {
         font-family: regular;
     }
 
-        .peopleContainer p a, .newsclick p a {
+        .peopleContainer p a, .newsclick p a, .removeliststyle p a {
             color: #4a4a4a;
             display: block;
         }
@@ -1350,6 +1350,8 @@ col-xs-6.membershipLogos {
 
 .newspanelhide.CurrentState {
     display: block !important;
+    margin-top: 150px;
+    min-height: 350px;
 }
 
 .news_flow {
@@ -3902,7 +3904,7 @@ label.css-label {
 		padding:5px;
     }
 
-       
+       .newspanelhide.CurrentState{margin-top: 130px;}
 
             .servicesList h4 a {
                 font-size: 14px;
@@ -4111,7 +4113,7 @@ white-space: nowrap;*/
     .newsW_card .newspanelhide {
         min-height: 1100px;
     }
-
+    .newsW_card .col-md-12{padding:0 !important}
     .sectionHead {
         font-size: 16px;
     }
