@@ -3,9 +3,11 @@
     Layout = "Master.cshtml";
     var currentPage = CurrentPage;
 }
-
-<div calss="abt_banner" style="/*position:relative;background-image:url(@Umbraco.Media(currentPage.bannerImage).Url);*/position: relative;width:100%;overflow:hidden;z-index: 999;background-size: cover;background-position: center bottom;background-repeat: no-repeat;">
-   <img class="abt_banimg" src="@Umbraco.Media(currentPage.bannerImage).Url" alt="" />
+<div calss="abt_banner" style="position: relative;width:100%;overflow:hidden;z-index: 999;background-size: cover;background-position: center bottom;background-repeat: no-repeat;">
+    @if (!string.IsNullOrEmpty(currentPage.bannerImage.ToString()))
+    { 
+    <img class="abt_banimg" src="@Umbraco.Media(currentPage.bannerImage).Url" alt="" />
+    }
     <h1 class="banner_h">@currentPage.pagetitle</h1>
 </div>
 <div class="section" id="introduction">
@@ -17,12 +19,11 @@
         </div>
     </div>
 </div>
-
 <div id="layertop"></div>
 @{
     foreach (var child in currentPage.Children)
     {
-       
+
         if (child.DocumentTypeAlias == "peopleWidget")
         {
 
@@ -37,7 +38,6 @@
                         <div class="sectionTitle"><h2 class="sectionHead">@child.title</h2></div>
                         <div class="col-md-5 col-md-offset-1 col-sm-6"><img src="@Umbraco.Media(child.image).Url" class="responsiveImg" /></div>
                         <div class="col-md-5 col-md-offset-1 col-sm-6 history_des">
-
                             @child.description
                         </div>
                     </div>
@@ -50,17 +50,17 @@
                 <div class="container">
                     <div class="row">
                         <div class="sectionTitle"><h2 class="sectionHead">@child.title</h2></div>
-                            @child.description
-                       
+                        @child.description
+
                     </div>
                 </div>
             </div>
         }
 
         @*else if (child.id == 1313)
-        {
-            @Html.Partial("_SocialValues")
-        }*@
+            {
+                @Html.Partial("_SocialValues")
+            }*@
 
         else if (child.DocumentTypeAlias == "clientTestimonials")
         {
@@ -79,22 +79,19 @@
 
     }
 }
-
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 <link rel="stylesheet" href="/css/grid.css" />
-    <script src="/scripts/modernizr.custom.js"></script>
-    <script src="/scripts/grid.js"></script>    
+<script src="/scripts/modernizr.custom.js"></script>
+<script src="/scripts/grid.js"></script>
+<script>
+    $(function () {
+        Grid.init();
+    });
 
-    <script>
-        $(function () {
-            Grid.init();
-        });
-		
-        $('.menu ul li:first-child a').addClass('active');
-    </script>
+    $('.menu ul li:nth-child(2) a').addClass('active');
+</script>
 <script>
     $(".section:even").css("background-color", "#EFEEEE");
 </script>
-    
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mixitup/2.1.11/jquery.mixitup.min.js"></script>
-         		

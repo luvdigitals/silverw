@@ -142,7 +142,7 @@ a:active {
 
         .menu ul li {
             display: inline-block;
-            margin-right: 10%;
+            margin-right: 7.2%;
             line-height: 50px;
         }
 
@@ -474,7 +474,7 @@ a:active {
     .carousel .carousel-indicators .active {
         width: 16px;
         height: 16px;
-        margin: 1px 35px 1px 0;
+        /*margin: 1px 35px 1px 0;*/
         background-color: #4a4a4a;
     }
 
@@ -642,12 +642,13 @@ a:active {
 /*.abt_sec .sectionTitle, .abt_sec .bannerHead{padding-top:80px}
 .int_sec{padding-top:120px;top:-80px;}
 .leadershp{padding-top:0 !important}*/
+.int_sec{padding-top:0}
 .topclr{background: rgb(239, 238, 238);
     display: inline-block;
     width: 100%;
-    height: 80px;
+    height: 60px;
     position: absolute;
-    top: -80px;}
+    top: -60px;}
 
 .sectionHead {
     font-family: bold;
@@ -1117,6 +1118,7 @@ col-xs-6.membershipLogos {
 .grid-section img {
     max-width: 100%;
 }
+.grid-section .col-md-12{padding:0 !important}
 
 #contactWidget a:hover img {
     -webkit-filter: drop-shadow(2px 0px 5px rgba(0, 0, 0, 0.5));
@@ -1350,7 +1352,7 @@ col-xs-6.membershipLogos {
 
 .newspanelhide.CurrentState {
     display: block !important;
-    margin-top: 150px;
+    margin-top: 50px;
     min-height: 350px;
 }
 
@@ -1475,7 +1477,7 @@ col-xs-6.membershipLogos {
 .mg-trigger {
     cursor: pointer;
 }
-.mg-trigger:nth-child(4){clear:both}
+/*.mg-trigger:nth-child(4){clear:both}*/
 
 .mg-space {
     display: none;
@@ -1500,7 +1502,8 @@ col-xs-6.membershipLogos {
 }
 .news_mg .mg-target-open{margin-top:0}
 .news_mg h3{color:#000}
-.news_mg .umb-grid .grid-section .column{padding:0}
+/*.news_mg .mg-rows:nth-child(4){clear:both}*/
+/*.news_mg .umb-grid .grid-section .column{padding:0}*/
 .column a{color:#fff !important;text-decoration:underline !important;}
 .column img{margin-bottom:15px;}
 /*.column{padding:0}*/
@@ -2158,6 +2161,8 @@ col-xs-6.membershipLogos {
     color: #000;
     margin: 15px 0;
 }
+#introduction ul li{margin: 0 0 10px;}
+.news_content ol li{margin: 0 0 10px;}
 
 .banner_h {
     color: #fff;
@@ -2232,6 +2237,7 @@ col-xs-6.membershipLogos {
     -webkit-transition: all 0s ease;
     -moz-transition: all 0s ease;
     -ms-transition: all 0s ease;
+	min-height: 400px;
 }
 
 .controls a {
@@ -3247,7 +3253,7 @@ label.css-label {
 
 @media screen and (max-width: 1200px) {
     .menu ul li {
-        margin-right: 8.2%;
+        margin-right: 6.2%;
     }
 }
 
@@ -3308,7 +3314,7 @@ label.css-label {
     }
 
     .menu ul li {
-        margin-right: 7.2%;
+        margin-right: 6%;
     }
     /*.item{height: 450px !important;}*/
     .servicesList img {
@@ -4043,6 +4049,7 @@ white-space: nowrap;*/
 }
 	.sectionHead{font-size: 20px;}
 	.servicesList .serv_title p{font-size: 12px;}
+	.carousel .carousel-indicators li{margin: 1px 20px 1px 0;}
 }
 @media screen and (max-width: 360px) {
     .item {
@@ -4170,7 +4177,7 @@ white-space: nowrap;*/
 
     .carousel .carousel-indicators {
         width: 80%;
-        left: 45%;
+        left: 40%;
     }
 
     .banner_des {
@@ -4200,6 +4207,7 @@ white-space: nowrap;*/
 }
 
 @media screen and (max-width: 320px) {
+	.carousel .carousel-indicators li{    margin: 1px 10px 1px 0;}
     .servicesList h4 {
         min-height: 20px;
     }

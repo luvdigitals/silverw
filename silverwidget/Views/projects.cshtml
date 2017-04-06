@@ -19,13 +19,16 @@
                     <fieldset>
                         @foreach (var pr in services.Children)
                         {
-                            string service = pr.id.ToString();
+                            if (!pr.excludeFromFilter)
+                            {
+                                string service = pr.id.ToString();
 
-                            <div class="col-md-4 col-sm-4 col-xs-6">
-                                <input type="checkbox" name="@service" id="@service" class="css-checkbox" />
-                                <label for=@service class="css-label">@pr.displayName</label>
-                            </div>
-                            c++;
+                                <div class="col-md-4 col-sm-4 col-xs-6">
+                                    <input type="checkbox" name="@service" id="@service" class="css-checkbox" />
+                                    <label for=@service class="css-label">@pr.displayName</label>
+                                </div>
+                                c++;
+                            }
                         }
                     </fieldset>
                 </form>
@@ -33,11 +36,9 @@
         </div>
     </div>
 </div>
-
 <div class="mg-space-init">
     <br>
     <ul id="projectsFilter" class="mg-rows container">
-
         @{
             var projects = Umbraco.Content(1156);
             if (projects.Children.Any())
@@ -53,14 +54,14 @@
 
                     <li data-category="@sclass" class="col-md-4">
                         <a href="#" title="MG Row" class="mg-trigger">
-							@if (!string.IsNullOrEmpty(p.projectLogo.ToString()))
-							{
-								<img class="img-responsive" src="@Umbraco.Media(p.projectLogo).Url" alt="">
-							}
-							else
-                            {								
-								<img class="img-responsive" src="/media/1268/blanknews.jpg" alt="">
-							}
+                            @if (!string.IsNullOrEmpty(p.projectLogo.ToString()))
+                            {
+                                <img class="img-responsive" src="@Umbraco.Media(p.projectLogo).Url" alt="">
+                            }
+                            else
+                            {
+                                <img class="img-responsive" src="/media/1268/blanknews.jpg" alt="">
+                            }
                             <h3>@p.projectName</h3>
                         </a>
                     </li>
@@ -97,13 +98,14 @@
                         <div class="container">
                             <div class="row-flex container">
                                 <div class="demo-item col-md-5">
-								@if(!string.IsNullOrEmpty(p.largeimage.ToString()))
-								{
-                                    <img class="img-responsive" src="@Umbraco.Media(p.largeimage).Url" alt="">
-								}
-								else{								
-									<img class="img-responsive" src="/media/1268/blanknews.jpg" alt="">
-								}
+                                    @if (!string.IsNullOrEmpty(p.largeimage.ToString()))
+                                    {
+                                        <img class="img-responsive" src="@Umbraco.Media(p.largeimage).Url" alt="">
+                                    }
+                                    else
+                                    {
+                                        <img class="img-responsive" src="/media/1268/blanknews.jpg" alt="">
+                                    }
                                 </div>
                                 <div class="col-md-6 demo-item pop_des">
                                     <h3>@p.projecttitle</h3>
@@ -111,13 +113,11 @@
                                     <div class="clearfix"></div>
                                     <div class="col-md-4" style="padding:0;position:static;display: inline-block;">
                                         @if (!p.hideViewDetailsLink)
-                                        { 
-                                        <a href="@p.Url" class="view_d"> <div class="globalBtn" style="border:none">View Details</div></a>
+                                        {
+                                            <a href="@p.Url" class="view_d"> <div class="globalBtn" style="border:none">View Details</div></a>
                                         }
                                     </div>
-
                                 </div>
-
                             </div>
                         </div>
                     </div>
@@ -131,7 +131,6 @@
         }
     </div>
 </div>
-
 @functions {
     public string RemoveSpecialChar(string name)
     {
@@ -141,14 +140,10 @@
 }
 
 
-
-
-
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 <script src="/scripts/projectFilter.js">
 
 </script>
-
 <link href="~/css/grid.css" rel="stylesheet" />
 <script src="~/Scripts/modernizr.custom.js"></script>
 <script src="~/Scripts/gridabt.js"></script>
@@ -194,7 +189,6 @@
     }
 </style>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mixitup/2.1.11/jquery.mixitup.min.js"></script>
-
 <script src="/scripts/jquery.mg-space.js"></script>
 <script>
     $(".section:even").css("background-color", "#EFEEEE");
@@ -202,7 +196,6 @@
 <script>
     $('.mg-space-init').mgSpace();
 
-    $('.menu ul li:nth-child(3) a').addClass('active');
+    $('.menu ul li:nth-child(4) a').addClass('active');
 </script>
-
 

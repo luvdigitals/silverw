@@ -17,3 +17,7 @@
 
 # ImageProcessor DiskCache 
 **/App_Data/cache/
+silverwidget/Web.config
+silverwidget.v12.suo
+silverwidget/Web.config
+silverwidget/Web.config

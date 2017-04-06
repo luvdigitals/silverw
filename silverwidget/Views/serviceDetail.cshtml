@@ -73,7 +73,7 @@
                                     <div class="col-md-3 ppl_clm ">
                                         <a href="#" title="MG Row" class="mg-trigger">
                                             <img class="img-responsive" src="@Umbraco.Media(p.peopleimage).Url" alt="">
-                                            <h3>@p.name</h3><p>@p.Qualification</p><p>@p.Designation</p>
+                                            <h3>@p.firstname</h3><p>@p.Qualification</p><p>@p.Designation</p>
                                             <p>&ensp;</p>
                                         </a>
                                         <a href="mailto:@p.Email" style="text-decoration:underline !important;position: relative;top: -25px;">@p.Email</a>
@@ -95,7 +95,7 @@
                                                 </div>
                                             </div>
                                             <div class="col-md-6 demo-item pop_des">
-                                                <h3>@p.name</h3><p>@p.Qualification</p><p>@p.Designation</p><br>
+                                                <h3>@p.firstname</h3><p>@p.Qualification</p><p>@p.Designation</p><br>
                                                 @p.description
                                             </div>
                                         </div>
@@ -217,7 +217,10 @@
                                                 <div class="col-md-6 demo-item pop_des">
                                                     <h3>@p.projecttitle</h3>
                                                     @p.shortdescription
-                                                    <a href="@p.Url" class="view_d"> <div class="globalBtn" style="border:none">View Details</div></a>
+                                                    @if (!p.hideViewDetailsLink)
+                                                    {
+                                                        <a href="@p.Url" class="view_d"> <div class="globalBtn" style="border:none">View Details</div></a>
+                                                    }
                                                 </div>
                                             </div>
                                         </div>

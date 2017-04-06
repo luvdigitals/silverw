@@ -226,6 +226,7 @@
 <script src="/scripts/modernizr.custom.js"></script>
 <script src="/scripts/gridabt.js"></script>
 <script>
+	 $('.menu ul li:first-child a').addClass('active');	
     $(".section:even").css("background-color", "#EFEEEE");
 </script>
 <script>
@@ -287,6 +288,19 @@
     });
 
 </script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery.touchswipe/1.6.4/jquery.touchSwipe.min.js"></script>
+<script>	
+	$(".carousel").swipe({
+
+  swipe: function(event, direction, distance, duration, fingerCount, fingerData) {
+
+    if (direction == 'left') $(this).carousel('next');
+    if (direction == 'right') $(this).carousel('prev');
+
+  },
+  allowPageScroll:"vertical"
+
+});</script>
 <style>
     /*
                     .og-grid li {

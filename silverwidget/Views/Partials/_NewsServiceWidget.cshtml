@@ -3,7 +3,6 @@
     Layout = null;
     var currentPage = CurrentPage;
 }
-
 <div id="peopleCard" class="newsW_card " style="overflow:hidden">
     @foreach (var child in currentPage.Children)
     {
@@ -42,23 +41,31 @@
                                                     <i class="fa fa-envelope-o" href="#" target="_blank"></i>Email
                                                 </a>
                                             </p>*@
-                                    </div>										
-                                </div>												
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
-											
+
                 }
             }
         }
     }
     <div class="section" id="nSection" style="display: inline-block;width: 100%;">
-		<div id="emptyDiv" style="top:-60px;position:absolute"></div>
+        <div id="emptyDiv" style="top:-60px;position:absolute"></div>
         <div class="col-md-12">
             <div class="rcnt_news" style="">
                 <div class="container">
                     <div class="row">
-                        <div class="sectionTitle n_title"><h2 class="sectionHead">@currentPage.serviceName Updates</h2></div>
+                        <div class="sectionTitle n_title">
+                            @foreach (var child in currentPage.Children)
+                            {
+                                if (child.DocumentTypeAlias == "newswidget")
+                                {
+                                    <h2 class="sectionHead">@child.name</h2>
+                                }
+                            }
+                        </div>
                         <div class="col-md-10 col-md-offset-1">
                             <div id="newsCarousel" class="carousel slide" data-ride="carousel" data-interval="false">
                                 <div class="padding30">
@@ -117,15 +124,15 @@
                                                         }
                                                         else
                                                         {
-                                                            <div class="row @classname">
-                                                                <div class="col-md-12 col-sm-12 n_cnt">
-                                                                    <h3>@s.title</h3>
-                                                                    <div class=" row"><div class="col-md-4 n_date"><h4>@s.publisheddate.ToString("dd/MM/yyyy")</h4></div></div>
-                                                                    <div class="row news_content">
-                                                                        @s.GetGridHtml(Html, "description")
-                                                                    </div>
+                                                            <div class=" @classname ">
+                                                                <div class=" col-md-12 col-sm-12 n_cnt">
+                                                                <h3>@s.title</h3>
+                                                                <div class=" "><div class="col-md-4 n_date"><h4>@s.publisheddate.ToString("dd/MM/yyyy")</h4></div></div>
+                                                                <div class=" news_content">
+                                                                    @s.GetGridHtml(Html, "description")
                                                                 </div>
                                                             </div>
+                                                        </div>
                                                         }
 
                                                         i++;
@@ -135,7 +142,7 @@
                                         }
                                     </div>
                                     <!-- Indicators -->
-                                   
+
                                 </div>
                                 <ol class="carousel-indicators" style="position:relative !important; bottom:auto; margin-top:50px;">
                                     @{
@@ -165,13 +172,13 @@
 
                                     }
                                 </ol>
-									 <!-- Left and right controls -->
-                                            <a class="left carousel-control" href="#newsCarousel" role="button" data-slide="prev" style="left:-60px">
-                                                <span class="sr-only">Previous</span>
-                                            </a>
-                                            <a class="right carousel-control last" href="#newsCarousel" role="button" data-slide="next" style="right:-60px !important">
-                                                <span class="sr-only">Next</span>
-                                            </a>
+                                <!-- Left and right controls -->
+                                <a class="left carousel-control" href="#newsCarousel" role="button" data-slide="prev" style="left:-60px">
+                                    <span class="sr-only">Previous</span>
+                                </a>
+                                <a class="right carousel-control last" href="#newsCarousel" role="button" data-slide="next" style="right:-60px !important">
+                                    <span class="sr-only">Next</span>
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -179,33 +186,40 @@
             </div>
         </div>
     </div>
-</div>
-<style>
-    .news_flow {
-        overflow: inherit;
-    }
+    </div>
+    <style>
+        .news_flow {
+            overflow: inherit;
+        }
 
-    .n_cnt h3 {
-        margin-bottom: 40px !important;
-    }
+        .n_cnt h3 {
+            margin-bottom: 40px !important;
+        }
 
-    .n_date {
-        border-bottom: 3px solid #ccc;margin-bottom: 15px;
-    }
+        .n_date {
+            border-bottom: 3px solid #ccc;
+            margin-bottom: 15px;
+        }
 
-    .grid-section .container {
-        width: auto !important;
-    }
-.left.carousel-control{display:block}
-.newsW_card .col-md-12{padding:0 !important}
-</style>
- 
-<script>
+        .grid-section .container {
+            width: auto !important;
+        }
+
+        .left.carousel-control {
+            display: block;
+        }
+
+        .newsW_card .col-md-12 {
+            padding: 0 !important;
+        }
+    </style>
+
+    <script>
 
 
 
 
- 
-   
 
-</script>
+
+
+    </script>
